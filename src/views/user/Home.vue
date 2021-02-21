@@ -1,12 +1,12 @@
 <template>
-  <main-layout>
-    <div class="p-5 w-full">
+  <dashboard>
+    <div class="px-5 pt-5 pb-16 bg-white rounded-xl w-full">
       <div class="text-2xl text-black mt-5 mx-5 font-bold text-center">
-        KETENTUAN REKRUTMENT DAN SELEKSI
+        KETENTUAN REKRUTMEN DAN SELEKSI
       </div>
-      <hr class="mt-10 border-black" />
+      <hr class="mt-5 border-black" />
 
-      <div class="text-black mt-14 mx-10">
+      <div class="text-black mt-5 mx-10">
         <p>
           Untuk Para calon Dosen Universitas Pembangunan Jaya, diharapkan untuk
           membaca ketentuan dan syarat untuk bergabung dan menjadi Dosen di
@@ -25,14 +25,14 @@
         </p>
       </div>
     </div>
-  </main-layout>
+  </dashboard>
 </template>
 
 <script>
-import MainLayout from "../../components/MainLayout.vue";
+import Dashboard from "@/components/Dashboard";
 
 export default {
   name: "Home",
-  components: { MainLayout }
+  components: { Dashboard }
 };
 </script>

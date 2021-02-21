@@ -14,37 +14,37 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "Information" */ "../views/Login.vue")
   },
   {
     path: "/alur",
     name: "Alur",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "Information" */ "../views/user/Alur.vue")
   },
   {
     path: "/job",
     name: "Job",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "JobVacancies" */ "../views/user/Job.vue")
+  },
+  {
+    path: "/data-pelamar",
+    name: "DataPelamar",
+    component: () =>
+      import(/* webpackChunkName: "JobVacancies" */ "../views/data-pelamar.vue")
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: () =>
+      import(/* webpackChunkName: "JobVacancies" */ "../views/Register.vue")
   },
   //---------------------------- REGISTRATION -------------------------//
   {
     path: "/registration",
     name: "Registration",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/user/Registration/Registration.vue"
@@ -53,9 +53,6 @@ const routes = [
   {
     path: "/regisdoc",
     name: "RegisDoc",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/user/Registration/RegisDoc.vue"
@@ -76,9 +73,6 @@ const routes = [
   {
     path: "/penyeleksian",
     name: "Penyeleksian",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "Information" */ "../views/user/Penyeleksian/Penyeleksian.vue"
@@ -88,9 +82,6 @@ const routes = [
   {
     path: "/spesifikasi",
     name: "Spesifikasi",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/user/Spesifikasi.vue"
@@ -100,18 +91,12 @@ const routes = [
   {
     path: "/data-hdc",
     name: "DataHdc",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "JobVacancies" */ "../views/hdc/DataHdc.vue")
   },
   {
     path: "/nilai-psikotest",
     name: "NilaiPsikotest",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/hdc/NilaiPsikotest.vue"
@@ -120,9 +105,6 @@ const routes = [
   {
     path: "/pengumuman",
     name: "Pengumuman",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/hdc/pengumuman.vue"
@@ -132,9 +114,6 @@ const routes = [
   {
     path: "/data-kaprodi",
     name: "DataKaprodi",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/kaprodi/DataKaprodi.vue"
@@ -143,9 +122,6 @@ const routes = [
   {
     path: "/form-interview-satu",
     name: "FormInterviewSatu",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/kaprodi/FormInterviewSatu.vue"
@@ -154,9 +130,6 @@ const routes = [
   {
     path: "/nilai-interview-satu",
     name: "NilaiInterviewSatu",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/kaprodi/NilaiInterviewSatu.vue"
@@ -165,9 +138,6 @@ const routes = [
   {
     path: "/psikotest",
     name: "Psikotes",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/user/Psikotest.vue"
@@ -177,9 +147,6 @@ const routes = [
   {
     path: "/nilai-mikroteaching",
     name: "NilaiMikroteaching",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/kaprodi/NilaiMikroteaching.vue"
@@ -188,9 +155,6 @@ const routes = [
   {
     path: "/form-mikroteaching",
     name: "FormMikroteaching",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/kaprodi/FormMikroteaching.vue"
@@ -199,9 +163,6 @@ const routes = [
   {
     path: "/tahap-satu", //pengumuman hasil SAW tahap 1
     name: "TahapSatu",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/kaprodi/TahapSatu.vue"
@@ -211,9 +172,6 @@ const routes = [
   {
     path: "/data-rektorat", //pengumuman hasil SAW tahap 1
     name: "DataRektorat",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/rektorat/DataRektorat.vue"
@@ -222,9 +180,6 @@ const routes = [
   {
     path: "/nilai-interview-dua", //pengumuman hasil SAW tahap 1
     name: "NilaiInterviewDua",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/rektorat/NilaiInterviewDua.vue"
@@ -233,9 +188,6 @@ const routes = [
   {
     path: "/form-interview-dua", //pengumuman hasil SAW tahap 1
     name: "FormInterviewDua",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/rektorat/FormInterviewDua.vue"
@@ -244,9 +196,6 @@ const routes = [
   {
     path: "/tahap-dua", //pengumuman hasil SAW tahap 1
     name: "TahapDua",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/rektorat/TahapDua.vue"

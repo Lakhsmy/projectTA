@@ -1,10 +1,10 @@
 <template>
-  <main-layout>
-    <div class="p-5 w-full">
+  <dashboard>
+    <div class="p-5 bg-white rounded-xl w-full">
       <div class="text-2xl text-black mt-2 mx-5 font-bold text-center">
         SOAL PSIKOTEST
       </div>
-      <hr class="mt-10 border-black" />
+      <hr class="mt-5 border-black" />
       <div v-for="(value, key) in questionList" :key="key">
         <div class="mt-5">
           {{ value.question }}
@@ -32,15 +32,15 @@
       </div>
       <t-button class="mt-10">Submit</t-button>
     </div>
-  </main-layout>
+  </dashboard>
 </template>
 
 <script>
-import MainLayout from "../../components/MainLayout.vue";
+import Dashboard from "@/components/Dashboard";
 
 export default {
   name: "Psikotest",
-  components: { MainLayout },
+  components: { Dashboard },
   data() {
     return {
       questionList: [
