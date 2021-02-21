@@ -21,7 +21,11 @@
             >
               <label class="text-left">Nama Lengkap Tanpa Gelar</label>
               <div class="flex flex-row">
-                <t-input name="my-input" />
+                <t-input
+                  v-model="form.fullName"
+                  data-test="fullName"
+                  name="my-input"
+                />
               </div>
             </div>
             <div
@@ -29,7 +33,7 @@
             >
               <label class="text-left">Email</label>
               <div class="flex flex-row">
-                <t-input name="my-input" />
+                <t-input v-model="form.email" name="my-input" />
               </div>
             </div>
             <div
@@ -37,7 +41,7 @@
             >
               <label class="text-left">Password</label>
               <div class="flex flex-row">
-                <t-input name="my-input" />
+                <t-input v-model="form.password" name="my-input" />
               </div>
             </div>
             <div
@@ -45,7 +49,7 @@
             >
               <label class="text-left">Tempat Lahir</label>
               <div class="flex flex-row">
-                <t-input name="my-input" />
+                <t-input v-model="form.birthPlace" name="my-input" />
               </div>
             </div>
             <div
@@ -53,7 +57,7 @@
             >
               <label class="text-left">Tanggal Lahir</label>
               <div class="flex flex-row">
-                <t-input name="my-input" />
+                <t-input v-model="form.birthPlace" name="my-input" />
               </div>
             </div>
             <div
@@ -61,7 +65,7 @@
             >
               <label class="text-left">NO KTP</label>
               <div class="flex flex-row">
-                <t-input name="my-input" />
+                <t-input v-model="form.ktp" name="my-input" />
               </div>
             </div>
             <div
@@ -69,7 +73,11 @@
             >
               <label class="text-left">Pendidikan Terakhir</label>
               <div class="flex flex-row">
-                <t-select :options="pendidikanTerakhirList" name="my-input" />
+                <t-select
+                  v-model="form.latestEducation"
+                  :options="pendidikanTerakhirList"
+                  name="my-input"
+                />
               </div>
             </div>
             <div
@@ -77,7 +85,7 @@
             >
               <label class="text-left">IPK</label>
               <div class="flex flex-row">
-                <t-input name="my-input" />
+                <t-input v-model="form.ipk" name="my-input" />
               </div>
             </div>
             <div
@@ -85,7 +93,11 @@
             >
               <label class="text-left">Jurusan Terpilih</label>
               <div class="flex flex-row">
-                <t-select :options="jurusanList" name="my-input" />
+                <t-select
+                  v-model="form.major"
+                  :options="jurusanList"
+                  name="my-input"
+                />
               </div>
             </div>
             <button
@@ -102,18 +114,39 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "Register",
   data() {
     return {
+      form: {
+        username: "",
+        fullName: "",
+        email: "",
+        birthDate: "",
+        birthPlace: "",
+        ktp: "",
+        latestEducation: "",
+        ipk: 0,
+        major: "",
+        password: ""
+      },
       showPassword: false,
       pendidikanTerakhirList: ["S2", "S3"],
       jurusanList: ["Tata Boga", "Ciputat - Bintaro"]
     };
   },
   methods: {
+    ...mapActions("auth", ["registerApplicant"]),
     onShowPassword: function() {},
-    onRegister: function() {}
+    onRegister: async function() {
+      try {
+        await this.registerApplicant({ payload: this.form });
+      } catch {
+        alert("Failed");
+      }
+    }
   }
 };
 </script>
