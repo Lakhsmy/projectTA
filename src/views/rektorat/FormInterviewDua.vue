@@ -1,5 +1,5 @@
 <template>
-  <layout-rektorat>
+  <dashboard>
     <div class="p-5 w-full">
       <div class="text-2xl text-black mt-2 mx-5 font-bold text-center">
         FORM PENILAIAN INTERVIEW TAHAP 2
@@ -66,15 +66,15 @@
       </div>
       <t-button>Submit</t-button>
     </div>
-  </layout-rektorat>
+  </dashboard>
 </template>
 
 <script>
-import LayoutRektorat from "../../components/LayoutRektorat.vue";
+import Dashboard from "../../components/Dashboard.vue";
 
 export default {
   name: "FormInterviewDua",
-  components: { LayoutRektorat },
+  components: { Dashboard },
   data() {
     return {
       questionList: [

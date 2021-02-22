@@ -1,6 +1,6 @@
 <template>
-  <layout-kaprodi>
-    <div class="flex w-5/6 p-5  flex-grow h-full">
+  <dashboard>
+    <div class="flex w-full p-5  flex-grow h-full">
       <div class="p-5 w-full">
         <div class="text-2xl text-black mt-5 mx-5 font-bold text-center">
           HASIL NILAI MIKROTEACHING TAHAP 1
@@ -197,13 +197,13 @@
         </div>
       </div>
     </div>
-  </layout-kaprodi>
+  </dashboard>
 </template>
 
 <script>
-import LayoutKaprodi from "../../components/LayoutKaprodi.vue";
+import Dashboard from "../../components/Dashboard.vue";
 export default {
   name: "NilaiMikroteaching",
-  components: { LayoutKaprodi }
+  components: { Dashboard }
 };
 </script>

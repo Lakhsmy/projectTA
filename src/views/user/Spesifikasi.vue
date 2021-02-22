@@ -2,22 +2,22 @@
   <dashboard>
     <div class="px-5 pt-5 pb-16 w-full bg-white rounded-xl">
       <div class="text-2xl text-black mt-5 mx-5 font-bold text-center">
-        Spesifikasi Rekrutmen
+        Kualifikasi Pendaftaran
       </div>
       <hr class="mt-5 border-black" />
       <div class="text-black leading-normal mt-5 mx-10">
-        <ol class="list-decimal">
+        <div class="text-xl text-black mt-5 font-bold text-left">
+          Ketentuan Umum
+        </div>
+        <ol class="list-decimal mt-5">
           <li>
             Pria/Wanita, usia max 40 th
           </li>
           <li>
-            Pendidikan S2/S3, bidang ilmu harus linier
+            Pendidikan S2/S3
           </li>
           <li>
             Lulusan dalam/luar negeri
-          </li>
-          <li>
-            Diutamakan yang memiliki pengalaman mengajar minimal 2 th
           </li>
           <li>
             Diutamakan yang memiliki pengalaman mengajar minimal 2 th
@@ -43,6 +43,25 @@
         <!--        <p class="mt-2">-->
         <!--          7. Domisili di sekitar Bintaro Jaya menjadi nilai tambah-->
         <!--        </p>-->
+        <div class="text-xl text-black mt-5 mb-5 font-bold text-left">
+          Ketentuan Khusus
+        </div>
+        <t-table
+          :headers="['No', 'Jurusan', 'Kualifikasi']"
+          :data="[
+            [
+              '1.',
+              'Dosen Program Studi Psikologi (D-Psi)',
+              'Usia max 45th, Latar Belakang Pendidikan S2/S3 Psikologi, Diutamakan memiliki kompetensi di bidang psikometri/konstruksi alat ukur/asesmen, terutama dibidang industri dan organisasi.'
+            ],
+            [
+              '2.',
+              'Dosen Program Studi Informatika (S.Kom)',
+              'Usia max 40th, Memiliki keahlian di bidang kecerdasan buatan, jaringan dan mikrokontroller atau robotika.'
+            ]
+          ]"
+        >
+        </t-table>
       </div>
     </div>
   </dashboard>

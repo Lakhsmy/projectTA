@@ -110,6 +110,14 @@ const routes = [
         /* webpackChunkName: "JobVacancies" */ "../views/hdc/pengumuman.vue"
       )
   },
+  {
+    path: "/lolos-psikotest",
+    name: "LolosPsikotest",
+    component: () =>
+      import(
+        /* webpackChunkName: "JobVacancies" */ "../views/hdc/LolosPsikotest.vue"
+      )
+  },
   //--------------------------- KAPRODI ----------------------------//
   {
     path: "/data-kaprodi",

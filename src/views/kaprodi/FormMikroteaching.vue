@@ -1,5 +1,5 @@
 <template>
-  <layout-kaprodi>
+  <dashboard>
     <div class="p-5 w-full">
       <div class="text-2xl text-black mt-2 mx-5 font-bold text-center">
         FORM PENILAIAN MIKROTEACHING TAHAP 1
@@ -66,15 +66,15 @@
       </div>
       <t-button>Submit</t-button>
     </div>
-  </layout-kaprodi>
+  </dashboard>
 </template>
 
 <script>
-import LayoutKaprodi from "../../components/LayoutKaprodi.vue";
+import Dashboard from "../../components/Dashboard.vue";
 
 export default {
   name: "FormMikroteaching",
-  components: { LayoutKaprodi },
+  components: { Dashboard },
   data() {
     return {
       questionList: [

@@ -3,7 +3,7 @@
     <div class="flex w-full p-5 flex-grow h-full">
       <div class="p-5 w-full">
         <div class="text-2xl text-black mt-5 mx-5 font-bold text-center">
-          HASIL PELAMAR LOLOS
+          HASIL PELAMAR LOLOS PSIKOTEST
         </div>
         <hr class="mt-10 border-black" />
 
@@ -93,7 +93,7 @@
 <script>
 import Dashboard from "../../components/Dashboard.vue";
 export default {
-  name: "Pengumuman",
+  name: "LolosPsikotest",
   components: { Dashboard }
 };
 </script>

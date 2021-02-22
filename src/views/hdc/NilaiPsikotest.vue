@@ -1,6 +1,6 @@
 <template>
-  <layout-hcd>
-    <div class="flex w-5/6 p-5  flex-grow h-full">
+  <dashboard>
+    <div class="flex w-full p-5 flex-grow h-full">
       <div class="p-5 w-full">
         <div class="text-2xl text-black mt-5 mx-5 font-bold text-center">
           HASIL NILAI PSIKOTEST PELAMAR
@@ -197,13 +197,14 @@
         </div>
       </div>
     </div>
-  </layout-hcd>
+  </dashboard>
 </template>
 
 <script>
-import LayoutHcd from "../../components/LayoutHcd.vue";
+import Dashboard from "../../components/Dashboard.vue";
+
 export default {
   name: "NilaiPsikotest",
-  components: { LayoutHcd }
+  components: { Dashboard }
 };
 </script>
