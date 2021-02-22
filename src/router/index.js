@@ -200,10 +200,28 @@ const routes = [
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/rektorat/TahapDua.vue"
       )
+  },
+  //---------------------------- REGISTRATION -------------------------//
+  {
+    path: "/question-set", //pengumuman hasil SAW tahap 1
+    name: "QuestionSetList",
+    component: () =>
+      import(
+        /* webpackChunkName: "JobVacancies" */ "../views/question-set/QuestionSetList.vue"
+      )
+  },
+  {
+    path: "/question-set/:action", //pengumuman hasil SAW tahap 1
+    name: "QuestionSetCreate",
+    component: () =>
+      import(
+        /* webpackChunkName: "JobVacancies" */ "../views/question-set/QuestionSetForm.vue"
+      )
   }
 ];
 
 const router = new VueRouter({
+  mode: "history",
   routes
 });
 

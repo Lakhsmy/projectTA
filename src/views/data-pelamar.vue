@@ -20,7 +20,10 @@
                   {{ props.row._id }}
                 </td>
                 <td :class="props.tdClass">
-                  {{ props.row.username }}
+                  {{ props.row.fullName }}
+                </td>
+                <td :class="props.tdClass">
+                  {{ props.row.email }}
                 </td>
                 <td :class="props.tdClass">
                   <t-button variant="secondary">Edit</t-button>
@@ -48,8 +51,12 @@ export default {
           text: "ID"
         },
         {
-          value: "username",
-          text: "Username"
+          value: "fullName",
+          text: "Fullname"
+        },
+        {
+          value: "email",
+          text: "Email"
         },
         {
           value: "actions",

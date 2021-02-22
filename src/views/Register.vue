@@ -6,7 +6,7 @@
         <div
           class="flex bg-white rounded-lg max-w-md mx-auto flex-col text-center"
         >
-          <span class="mt-5 text-lg font-bold">REKRUTMENT DOSEN</span>
+          <h1 class="mt-5 text-lg font-bold">REKRUTMEN DOSEN</h1>
           <a class="mx-48 mt-3"
             ><img
               class="h-16"
@@ -33,7 +33,11 @@
             >
               <label class="text-left">Email</label>
               <div class="flex flex-row">
-                <t-input v-model="form.email" name="my-input" />
+                <t-input
+                  v-model="form.email"
+                  data-test="email"
+                  name="my-input"
+                />
               </div>
             </div>
             <div
@@ -41,7 +45,11 @@
             >
               <label class="text-left">Password</label>
               <div class="flex flex-row">
-                <t-input v-model="form.password" name="my-input" />
+                <t-input
+                  v-model="form.password"
+                  data-test="password"
+                  name="my-input"
+                />
               </div>
             </div>
             <div
@@ -49,7 +57,11 @@
             >
               <label class="text-left">Tempat Lahir</label>
               <div class="flex flex-row">
-                <t-input v-model="form.birthPlace" name="my-input" />
+                <t-input
+                  v-model="form.birthPlace"
+                  data-test="birthPlace"
+                  name="my-input"
+                />
               </div>
             </div>
             <div
@@ -57,7 +69,11 @@
             >
               <label class="text-left">Tanggal Lahir</label>
               <div class="flex flex-row">
-                <t-input v-model="form.birthPlace" name="my-input" />
+                <t-datepicker
+                  v-model="form.birthDate"
+                  data-test="birthDate"
+                  name="my-input"
+                />
               </div>
             </div>
             <div
@@ -65,7 +81,7 @@
             >
               <label class="text-left">NO KTP</label>
               <div class="flex flex-row">
-                <t-input v-model="form.ktp" name="my-input" />
+                <t-input v-model="form.ktp" data-test="ktp" name="my-input" />
               </div>
             </div>
             <div
@@ -76,6 +92,7 @@
                 <t-select
                   v-model="form.latestEducation"
                   :options="pendidikanTerakhirList"
+                  data-test="latestEducation"
                   name="my-input"
                 />
               </div>
@@ -85,7 +102,11 @@
             >
               <label class="text-left">IPK</label>
               <div class="flex flex-row">
-                <t-input v-model="form.ipk" name="my-input" />
+                <t-input
+                  v-model.number="form.ipk"
+                  data-test="ipk"
+                  name="my-input"
+                />
               </div>
             </div>
             <div
@@ -96,12 +117,14 @@
                 <t-select
                   v-model="form.major"
                   :options="jurusanList"
+                  data-test="major"
                   name="my-input"
                 />
               </div>
             </div>
             <button
               class="block w-full p-4 text-center text-xs text-white font-semibold leading-none bg-blue-600 hover:bg-blue-700 rounded"
+              data-test="registerButton"
               @click="onRegister"
             >
               Daftar
