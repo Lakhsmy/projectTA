@@ -20,7 +20,7 @@
 
         <div class="mx-5 mt-5 text-black font-bold">
           <router-link to="/spesifikasi" class="nav-link"
-            >Kualifikasi</router-link
+            >Spesifikasi</router-link
           >
         </div>
 
@@ -28,9 +28,9 @@
           <router-link to="/alur" class="nav-link">Alur</router-link>
         </div>
 
-        <!-- <div class="mx-5 mt-5 text-black font-bold">
+        <div class="mx-5 mt-5 text-black font-bold">
           <router-link to="/job" class="nav-link">Job</router-link>
-        </div> -->
+        </div>
 
         <div class="mx-5 mt-10 text-black font-bold ">
           <router-link to="/psikotest" class="nav-link flex flex-row">
@@ -111,10 +111,6 @@
         </div> -->
 
         <!-- Registrasi -->
-        <div class="mx-5 mt-52 text-black font-bold">
-          <router-link to="/register" class="nav-link">Register</router-link>
-        </div>
-
         <div class="mx-5 mt-52 text-black font-bold">
           <router-link to="/registration" class="nav-link"
             >Registrasi</router-link

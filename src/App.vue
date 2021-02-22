@@ -3,3 +3,9 @@
     <router-view />
   </div>
 </template>
+
+<style>
+.ps {
+  height: 500px;
+}
+</style>

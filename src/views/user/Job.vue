@@ -1,13 +1,13 @@
 <template>
-  <main-layout>
-    <div class="flex w-5/6 p-5  flex-grow h-full">
-      <div class="p-5 w-full">
+  <dashboard>
+    <div class="flex justify-center p-5  flex-grow h-full">
+      <div class="p-5 bg-white rounded-xl w-full">
         <div class="text-2xl text-black mt-5 mx-5 font-bold text-center">
           KETENTUAN REKRUTMENT DAN SELEKSI
         </div>
         <hr class="mt-5 border-black" />
 
-        <div class="text-black mt-14 mx-10">
+        <div class="text-black mt-10 mx-5">
           <t-table
             :headers="['No', 'Jurusan', 'Kualifikasi']"
             :data="[
@@ -27,13 +27,13 @@
         </div>
       </div>
     </div>
-  </main-layout>
+  </dashboard>
 </template>
 
 <script>
-import MainLayout from "../../components/MainLayout.vue";
+import Dashboard from "@/components/Dashboard";
 export default {
-  components: { MainLayout },
+  components: { Dashboard },
   name: "Job"
 };
 </script>
