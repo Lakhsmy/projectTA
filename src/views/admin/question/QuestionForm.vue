@@ -46,7 +46,7 @@
                   <div class="w-2/12">
                     <t-select
                       v-model="option.isCorrectAnswer"
-                      :options="[true, false]"
+                      :options="['true', 'false']"
                     />
                   </div>
                   <div>
@@ -124,6 +124,12 @@ export default {
     },
     async submitQuestion() {
       try {
+        this.getQuestion.answerOptions.map(value => {
+          return {
+            ...value,
+            isCorrectAnswer: value.isCorrectAnswer == "true" ? true : false
+          };
+        });
         if (this.action == "edit") {
           await this[UPDATE_QUESTION]({
             id: this.id,
