@@ -40,8 +40,14 @@
                   <div class="w-1/12 flex flex-row align-self-center">
                     <input type="number" :value="optionKey + 1" />.
                   </div>
-                  <div class="w-8/12">
+                  <div class="w-6/12">
                     <t-input v-model="option.answerBody" />
+                  </div>
+                  <div class="w-2/12">
+                    <t-select
+                      v-model="option.isCorrectAnswer"
+                      :options="[true, false]"
+                    />
                   </div>
                   <div>
                     <t-button
@@ -83,7 +89,7 @@ export default {
       selectedQuestion: "",
       action: this.$route.params.action,
       id: this.$route.params.id,
-      questionTypeList: ["Interview", "Psikotest"],
+      questionTypeList: ["", "Interview", "Psikotest", "Microteaching"],
       form: {
         question: "",
         answerOptions: [],
@@ -104,7 +110,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions("question", [FETCH_QUESTION, CREATE_QUESTION]),
+    ...mapActions("question", [
+      FETCH_QUESTION,
+      CREATE_QUESTION,
+      UPDATE_QUESTION
+    ]),
     fetchData() {
       // this[FETCH_QUESTION_LISTS]();
       // this.fetchData();
@@ -122,7 +132,9 @@ export default {
         } else {
           await this[CREATE_QUESTION]({ payload: this.getQuestion });
         }
+        await this.$router.push({ name: "QuestionList" });
       } catch (e) {
+        console.log(e);
         alert("Error");
       }
     },

@@ -14,7 +14,11 @@ export const DELETE_QUESTION = "deleteQuestion";
 const question = {
   state: {
     questionList: [],
-    questionData: {},
+    questionData: {
+      question: "",
+      questionType: "",
+      answerOptions: []
+    },
     createQuestion: {
       error: "",
       statusCode: "",
