@@ -20,7 +20,7 @@
                   {{ props.row._id }}
                 </td>
                 <td :class="props.tdClass">
-                  {{ props.row.title }}
+                  {{ props.row.question }}
                 </td>
                 <td :class="props.tdClass">
                   {{ props.row.questionType }}
@@ -59,8 +59,8 @@ export default {
           text: "ID"
         },
         {
-          value: "title",
-          text: "Title"
+          value: "question",
+          text: "Question"
         },
         {
           value: "questionType",
