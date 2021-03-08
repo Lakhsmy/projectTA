@@ -11,13 +11,13 @@
           <form @submit.prevent="submitQuestion">
             <div class="mb-5">
               <label>Title</label>
-              <t-input class="mt-2" v-model="form.question" />
+              <t-input class="mt-2" v-model="getQuestion.question" />
             </div>
             <div class="mb-5">
               <label>Question Type</label>
               <t-select
                 class="mt-2"
-                v-model="form.questionType"
+                v-model="getQuestion.questionType"
                 :options="questionTypeList"
               />
             </div>
@@ -27,13 +27,13 @@
             <div>
               Option List
               <draggable
-                v-model="form.answerOptions"
+                v-model="getQuestion.answerOptions"
                 group="options"
                 @start="drag = true"
                 @end="drag = false"
               >
                 <div
-                  v-for="(option, optionKey) in form.answerOptions"
+                  v-for="(option, optionKey) in getQuestion.answerOptions"
                   :key="optionKey"
                   class="p-5 flex flex-row rounded-lg bg-gray-50 shadow-lg"
                 >
@@ -71,7 +71,8 @@ import draggable from "vuedraggable";
 
 import {
   CREATE_QUESTION,
-  FETCH_QUESTION_LISTS
+  FETCH_QUESTION,
+  UPDATE_QUESTION
 } from "@/store/module/question.module";
 import { mapActions, mapGetters } from "vuex";
 export default {
@@ -80,6 +81,8 @@ export default {
   data() {
     return {
       selectedQuestion: "",
+      action: this.$route.params.action,
+      id: this.$route.params.id,
       questionTypeList: ["Interview", "Psikotest"],
       form: {
         question: "",
@@ -89,19 +92,36 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("question", ["getQuestionList"])
+    ...mapGetters("question", ["getQuestionList", "getQuestion"])
   },
   mounted() {
     this.fetchData();
   },
+  watch: {
+    $route(to) {
+      this.action = to.params.action;
+      this.id = to.params.id;
+    }
+  },
   methods: {
-    ...mapActions("question", [FETCH_QUESTION_LISTS, CREATE_QUESTION]),
+    ...mapActions("question", [FETCH_QUESTION, CREATE_QUESTION]),
     fetchData() {
-      this[FETCH_QUESTION_LISTS]();
+      // this[FETCH_QUESTION_LISTS]();
+      // this.fetchData();
+      if (this.action == "edit") {
+        this[FETCH_QUESTION]({ id: this.id });
+      }
     },
     async submitQuestion() {
       try {
-        await this[CREATE_QUESTION]({ payload: this.form });
+        if (this.action == "edit") {
+          await this[UPDATE_QUESTION]({
+            id: this.id,
+            payload: this.getQuestion
+          });
+        } else {
+          await this[CREATE_QUESTION]({ payload: this.getQuestion });
+        }
       } catch (e) {
         alert("Error");
       }
@@ -113,11 +133,11 @@ export default {
         isCorrectAnswer: true
       };
       // if (!checkIfQuestionAlreadyExists) {
-      this.form.answerOptions.push(Object.assign({}, payload));
+      this.getQuestion.answerOptions.push(Object.assign({}, payload));
       // }
     },
     removeOption(questionIndex) {
-      this.form.answerOptions.splice(questionIndex, 1);
+      this.getQuestion.answerOptions.splice(questionIndex, 1);
     }
   }
 };
