@@ -166,6 +166,7 @@ export default {
     onRegister: async function() {
       try {
         await this.registerApplicant({ payload: this.form });
+        await this.$router.push("/");
       } catch {
         alert("Failed");
       }

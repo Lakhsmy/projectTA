@@ -3,13 +3,18 @@ import axios from "axios";
 // Mutations
 export const SET_QUESTION_LIST = "setQuestionList";
 export const SET_CREATE_QUESTION = "setCreateQuestion";
+export const SET_QUESTION = "setQuestion";
 // Actions
 export const FETCH_QUESTION_LISTS = "fetchQuestionList";
 export const CREATE_QUESTION = "createQuestion";
+export const FETCH_QUESTION = "fetchQuestion";
+export const UPDATE_QUESTION = "updateQuestion";
+export const DELETE_QUESTION = "deleteQuestion";
 
 const question = {
   state: {
     questionList: [],
+    questionData: {},
     createQuestion: {
       error: "",
       statusCode: "",
@@ -19,6 +24,9 @@ const question = {
   getters: {
     getQuestionList: state => {
       return state.questionList;
+    },
+    getQuestion: state => {
+      return state.questionData;
     }
   },
   mutations: {
@@ -27,6 +35,9 @@ const question = {
     },
     [SET_CREATE_QUESTION]: (state, payload) => {
       state.createQuestion = payload;
+    },
+    [SET_QUESTION]: (state, payload) => {
+      state.questionData = payload;
     }
   },
   actions: {
@@ -56,9 +67,46 @@ const question = {
       } catch (e) {
         console.error(e);
       }
+    },
+    async [FETCH_QUESTION]({ commit }, { id }) {
+      try {
+        const { data } = await axios.get(
+          `${process.env.VUE_APP_API_URL}/question/${id}`
+        );
+
+        commit(SET_QUESTION, data);
+        return data;
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async [UPDATE_QUESTION]({ commit }, { id, payload }) {
+      try {
+        const { data } = await axios.put(
+          `${process.env.VUE_APP_API_URL}/question/${id}`,
+          payload
+        );
+
+        commit(SET_QUESTION, data);
+        return data;
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async [DELETE_QUESTION]({ commit }, { id }) {
+      try {
+        const { data } = await axios.delete(
+          `${process.env.VUE_APP_API_URL}/question/${id}`
+        );
+
+        commit(SET_QUESTION, data);
+        return data;
+      } catch (e) {
+        console.error(e);
+      }
     }
   },
-  namespaced: "question"
+  namespaced: true
 };
 
 export default question;

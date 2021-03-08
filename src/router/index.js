@@ -211,19 +211,43 @@ const routes = [
   },
   //---------------------------- REGISTRATION -------------------------//
   {
-    path: "/question-set", //pengumuman hasil SAW tahap 1
-    name: "QuestionSetList",
+    path: "/question",
+    name: "QuestionList",
     component: () =>
       import(
-        /* webpackChunkName: "JobVacancies" */ "../views/question-set/QuestionSetList.vue"
+        /* webpackChunkName: "JobVacancies" */ "../views/admin/question/QuestionList.vue"
       )
   },
   {
-    path: "/question-set/:action", //pengumuman hasil SAW tahap 1
+    path: "/question/:action",
+    name: "QuestionCreate",
+    component: () =>
+      import(
+        /* webpackChunkName: "JobVacancies" */ "../views/admin/question/QuestionForm.vue"
+      )
+  },
+  {
+    path: "/question/:action/:id",
+    name: "QuestionEdit",
+    component: () =>
+      import(
+        /* webpackChunkName: "JobVacancies" */ "../views/admin/question/QuestionForm.vue"
+      )
+  },
+  {
+    path: "/question-set",
+    name: "QuestionSetList",
+    component: () =>
+      import(
+        /* webpackChunkName: "JobVacancies" */ "../views/admin/question-set/QuestionSetList.vue"
+      )
+  },
+  {
+    path: "/question-set/:action",
     name: "QuestionSetCreate",
     component: () =>
       import(
-        /* webpackChunkName: "JobVacancies" */ "../views/question-set/QuestionSetForm.vue"
+        /* webpackChunkName: "JobVacancies" */ "../views/admin/question-set/QuestionSetForm.vue"
       )
   }
 ];
