@@ -10,20 +10,23 @@ export const CREATE_QUESTION = "createQuestion";
 export const FETCH_QUESTION = "fetchQuestion";
 export const UPDATE_QUESTION = "updateQuestion";
 export const DELETE_QUESTION = "deleteQuestion";
+export const RESET_QUESTION = "resetQuestion";
 
 const question = {
   state: {
     questionList: [],
     questionData: {
       question: "",
-      questionType: "",
+      questionType: "MultipleChoice",
+      questionCategory: "",
       answerOptions: []
     },
     createQuestion: {
       error: "",
       statusCode: "",
       message: []
-    }
+    },
+    error: {}
   },
   getters: {
     getQuestionList: state => {
@@ -42,18 +45,37 @@ const question = {
     },
     [SET_QUESTION]: (state, payload) => {
       state.questionData = payload;
+    },
+    setError: (state, payload) => {
+      state.error = payload;
     }
   },
   actions: {
-    async [FETCH_QUESTION_LISTS]({ commit }) {
+    async [FETCH_QUESTION_LISTS](
+      { commit },
+      { questionCategory } = { questionCategory: null }
+    ) {
       try {
+        const params = new URLSearchParams();
+        if (questionCategory != null) {
+          params.append("questionCategory", questionCategory);
+        }
         const { data } = await axios.get(
-          `${process.env.VUE_APP_API_URL}/question`
+          `${process.env.VUE_APP_API_URL}/question?${params}`
         );
         commit(SET_QUESTION_LIST, data);
       } catch (e) {
         console.error(e);
       }
+    },
+    async [RESET_QUESTION]({ commit }) {
+      const initialData = {
+        question: "",
+        questionType: "MultipleChoice",
+        questionCategory: "",
+        answerOptions: []
+      };
+      commit(SET_QUESTION, initialData);
     },
     async [CREATE_QUESTION]({ commit }, { payload }) {
       try {
@@ -70,6 +92,7 @@ const question = {
         return data;
       } catch (e) {
         console.error(e);
+        throw new Error(e.message);
       }
     },
     async [FETCH_QUESTION]({ commit }, { id }) {
@@ -91,10 +114,12 @@ const question = {
           payload
         );
 
-        commit(SET_QUESTION, data);
+        // commit(SET_QUESTION, data);
         return data;
       } catch (e) {
+        commit("setError", e);
         console.error(e);
+        throw new Error(e.message);
       }
     },
     async [DELETE_QUESTION]({ commit }, { id }) {

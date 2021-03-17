@@ -23,7 +23,7 @@
                   {{ props.row.question }}
                 </td>
                 <td :class="props.tdClass">
-                  {{ props.row.questionType }}
+                  {{ props.row.questionCategory }}
                 </td>
                 <td :class="props.tdClass">
                   <t-button
@@ -63,8 +63,8 @@ export default {
           text: "Question"
         },
         {
-          value: "questionType",
-          text: "Question Type"
+          value: "questionCategory",
+          text: "Question Category"
         },
         {
           value: "actions",

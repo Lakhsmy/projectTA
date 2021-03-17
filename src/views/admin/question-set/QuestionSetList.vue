@@ -28,10 +28,17 @@
                   {{ props.row.title }}
                 </td>
                 <td :class="props.tdClass">
-                  {{ props.row.questionType }}
+                  {{ props.row.questionSetCategory }}
                 </td>
                 <td :class="props.tdClass">
-                  <t-button variant="secondary">Edit</t-button>
+                  <t-button
+                    :to="{
+                      name: 'QuestionSetEdit',
+                      params: { action: 'edit', id: props.row._id }
+                    }"
+                    variant="secondary"
+                    >Edit</t-button
+                  >
                 </td>
               </tr>
             </template>

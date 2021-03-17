@@ -14,11 +14,23 @@
               <t-input class="mt-2" v-model="getQuestion.question" />
             </div>
             <div class="mb-5">
+              <label>Description</label>
+              <t-input class="mt-2" v-model="getQuestion.description" />
+            </div>
+            <div class="mb-5">
               <label>Question Type</label>
               <t-select
                 class="mt-2"
                 v-model="getQuestion.questionType"
                 :options="questionTypeList"
+              />
+            </div>
+            <div class="mb-5">
+              <label>Question Category</label>
+              <t-select
+                class="mt-2"
+                v-model="getQuestion.questionCategory"
+                :options="questionCategoryList"
               />
             </div>
             <div class="flex flex-row mb-5">
@@ -29,8 +41,9 @@
               <draggable
                 v-model="getQuestion.answerOptions"
                 group="options"
-                @start="drag = true"
-                @end="drag = false"
+                @add="onAddOption"
+                @start="onStartDrag"
+                @end="onEndDrag"
               >
                 <div
                   v-for="(option, optionKey) in getQuestion.answerOptions"
@@ -38,7 +51,10 @@
                   class="p-5 flex flex-row rounded-lg bg-gray-50 shadow-lg"
                 >
                   <div class="w-1/12 flex flex-row align-self-center">
-                    <input type="number" :value="optionKey + 1" />.
+                    <input
+                      type="number"
+                      v-model.number="option.optionNumber"
+                    />.
                   </div>
                   <div class="w-6/12">
                     <t-input v-model="option.answerBody" />
@@ -46,7 +62,7 @@
                   <div class="w-2/12">
                     <t-select
                       v-model="option.isCorrectAnswer"
-                      :options="['true', 'false']"
+                      :options="['false', 'true']"
                     />
                   </div>
                   <div>
@@ -78,6 +94,7 @@ import draggable from "vuedraggable";
 import {
   CREATE_QUESTION,
   FETCH_QUESTION,
+  RESET_QUESTION,
   UPDATE_QUESTION
 } from "@/store/module/question.module";
 import { mapActions, mapGetters } from "vuex";
@@ -89,7 +106,8 @@ export default {
       selectedQuestion: "",
       action: this.$route.params.action,
       id: this.$route.params.id,
-      questionTypeList: ["", "Interview", "Psikotest", "Microteaching"],
+      questionTypeList: ["", "MultipleChoice"],
+      questionCategoryList: ["", "Interview", "Psikotest", "Microteaching"],
       form: {
         question: "",
         answerOptions: [],
@@ -113,24 +131,50 @@ export default {
     ...mapActions("question", [
       FETCH_QUESTION,
       CREATE_QUESTION,
-      UPDATE_QUESTION
+      UPDATE_QUESTION,
+      RESET_QUESTION
     ]),
-    fetchData() {
+    onStartDrag(e) {
+      console.log(e);
+    },
+    onEndDrag(e) {
+      console.log(e);
+      this.getQuestion.answerOptions[e.newIndex].optionNumber = e.newIndex + 1;
+      this.getQuestion.answerOptions[e.oldIndex].optionNumber = e.oldIndex + 1;
+    },
+    onAddOption(e, t) {
+      console.log(e, t);
+    },
+    async fetchData() {
       // this[FETCH_QUESTION_LISTS]();
       // this.fetchData();
       if (this.action == "edit") {
-        this[FETCH_QUESTION]({ id: this.id });
+        await this[FETCH_QUESTION]({ id: this.id });
+        this.getQuestion.answerOptions = this.getQuestion.answerOptions.map(
+          value => {
+            return {
+              ...value,
+              isCorrectAnswer: String(value.isCorrectAnswer)
+            };
+          }
+        );
+      } else {
+        await this[RESET_QUESTION]();
       }
     },
     async submitQuestion() {
       try {
-        this.getQuestion.answerOptions.map(value => {
-          return {
-            ...value,
-            isCorrectAnswer: value.isCorrectAnswer == "true" ? true : false
-          };
-        });
-        if (this.action == "edit") {
+        this.getQuestion.answerOptions = this.getQuestion.answerOptions.map(
+          value => {
+            console.log(value);
+            let isCorrect = value.isCorrectAnswer !== "false";
+            return {
+              ...value,
+              isCorrectAnswer: isCorrect
+            };
+          }
+        );
+        if (this.action === "edit") {
           await this[UPDATE_QUESTION]({
             id: this.id,
             payload: this.getQuestion
@@ -145,10 +189,12 @@ export default {
       }
     },
     addOption() {
+      const getOptionsLength = this.getQuestion.answerOptions.length;
+
       let payload = {
-        optionNumber: 0,
+        optionNumber: getOptionsLength + 1,
         answerBody: "",
-        isCorrectAnswer: true
+        isCorrectAnswer: "false"
       };
       // if (!checkIfQuestionAlreadyExists) {
       this.getQuestion.answerOptions.push(Object.assign({}, payload));

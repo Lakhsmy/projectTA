@@ -249,6 +249,14 @@ const routes = [
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/admin/question-set/QuestionSetForm.vue"
       )
+  },
+  {
+    path: "/question-set/:action/:id",
+    name: "QuestionSetEdit",
+    component: () =>
+      import(
+        /* webpackChunkName: "JobVacancies" */ "../views/admin/question-set/QuestionSetForm.vue"
+      )
   }
 ];
 

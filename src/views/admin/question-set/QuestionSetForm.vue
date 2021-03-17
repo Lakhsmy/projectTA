@@ -8,17 +8,18 @@
         <hr class="mt-5 border-black" />
 
         <div class="text-black mt-10 mx-5">
-          <form>
+          <form @submit.prevent="onSubmit">
             <div class="mb-5">
               <label>Title</label>
-              <t-input class="mt-2" v-model="form.title" />
+              <t-input class="mt-2" v-model="getQuestionSet.title" />
             </div>
             <div class="mb-5">
-              <label>Question Type</label>
+              <label>Question Category</label>
               <t-select
                 class="mt-2"
-                v-model="form.questionType"
-                :options="questionTypeList"
+                v-model="getQuestionSet.questionSetCategory"
+                @change="onChangeQuestionSetCategory"
+                :options="questionSetCategoryList"
               />
             </div>
             <div>
@@ -39,7 +40,7 @@
             <div>
               Question List
               <div
-                v-for="(question, questionKey) in form.questionSet"
+                v-for="(question, questionKey) in getQuestionSet.questionSet"
                 :key="questionKey"
                 class="p-5 flex flex-row rounded-lg bg-gray-50 shadow-lg"
               >
@@ -56,6 +57,9 @@
                 </div>
               </div>
             </div>
+            <div class="my-2">
+              <t-button type="submit">Submit</t-button>
+            </div>
           </form>
         </div>
       </div>
@@ -67,45 +71,99 @@
 import Dashboard from "@/components/Dashboard";
 import { FETCH_QUESTION_LISTS } from "@/store/module/question.module";
 import { mapActions, mapGetters } from "vuex";
+import {
+  CREATE_QUESTION_SET,
+  FETCH_QUESTION_SET,
+  RESET_QUESTION_SET,
+  UPDATE_QUESTION_SET
+} from "@/store/module/question-set.module";
 export default {
   components: { Dashboard },
   name: "QuestionSetForm",
   data() {
     return {
       selectedQuestion: "",
-      questionTypeList: ["Interview", "Psikotest"],
-      form: {
-        title: "",
-        questionSet: [],
-        questionType: ""
-      }
+      selectedQuestionSetCategory: "",
+      action: this.$route.params.action,
+      id: this.$route.params.id,
+      questionSetCategoryList: ["Interview", "Psikotest", "Microteaching"]
+      // form: {
+      //   title: "",
+      //   questionSet: [],
+      //   questionCategory: ""
+      // }
     };
   },
   computed: {
-    ...mapGetters("question", ["getQuestionList"])
+    ...mapGetters("question", ["getQuestionList"]),
+    ...mapGetters("questionSet", ["getQuestionSet"])
   },
   mounted() {
     this.fetchData();
   },
   methods: {
+    ...mapActions("questionSet", [
+      CREATE_QUESTION_SET,
+      UPDATE_QUESTION_SET,
+      FETCH_QUESTION_SET,
+      RESET_QUESTION_SET
+    ]),
     ...mapActions("question", [FETCH_QUESTION_LISTS]),
-    fetchData() {
+    async fetchData() {
       this[FETCH_QUESTION_LISTS]();
+      if (this.action === "edit") {
+        await this[FETCH_QUESTION_SET]({ id: this.id });
+      } else {
+        await this[RESET_QUESTION_SET]();
+      }
+    },
+    onChangeQuestionSetCategory() {
+      this[FETCH_QUESTION_LISTS]({
+        questionCategory: this.getQuestionSet.questionSetCategory
+      });
     },
     addQuestion() {
       const questionId = this.selectedQuestion;
       const getQuestionObject = this.getQuestionList.find(
-        value => value._id == questionId
+        value => value._id === questionId
       );
-      const checkIfQuestionAlreadyExists = this.form.questionSet.some(
-        value => value._id == questionId
+      const checkIfQuestionAlreadyExists = this.getQuestionSet.questionSet.some(
+        value => value._id === questionId
       );
       if (!checkIfQuestionAlreadyExists) {
-        this.form.questionSet.push(Object.assign({}, getQuestionObject));
+        this.getQuestionSet.questionSet.push(
+          Object.assign({}, getQuestionObject)
+        );
       }
     },
     removeQuestion(questionIndex) {
-      this.form.questionSet.splice(questionIndex, 1);
+      this.getQuestionSet.questionSet.splice(questionIndex, 1);
+    },
+    async onSubmit() {
+      try {
+        // this.getQuestion.answerOptions = this.getQuestion.answerOptions.map(
+        //   value => {
+        //     console.log(value);
+        //     let isCorrect = value.isCorrectAnswer !== "false";
+        //     return {
+        //       ...value,
+        //       isCorrectAnswer: isCorrect
+        //     };
+        //   }
+        // );
+        if (this.action === "edit") {
+          await this[UPDATE_QUESTION_SET]({
+            id: this.id,
+            payload: this.getQuestionSet
+          });
+        } else {
+          await this[CREATE_QUESTION_SET]({ payload: this.getQuestionSet });
+        }
+        await this.$router.push({ name: "QuestionSetList" });
+      } catch (e) {
+        console.log(e);
+        alert("Error");
+      }
     }
   }
 };

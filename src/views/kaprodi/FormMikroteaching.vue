@@ -17,7 +17,7 @@
         <p class="mx-14 mt-5">2</p>
         <p class="mx-10 mt-5">1</p>
       </div>
-      <div class="flek flex-col mt-0 flex-grow border border-black">
+      <div class="flex flex-col mt-0 flex-grow border border-black">
         <div v-for="(value, key) in questionList" :key="key">
           <div class="flex flex-row">
             <div class="w-2/5">
