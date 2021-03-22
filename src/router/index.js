@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/user/Home.vue";
+import store from "@/store/index";
 
 Vue.use(VueRouter);
 
@@ -9,6 +10,9 @@ const routes = [
   {
     path: "/",
     name: "Home",
+    meta: {
+      needAuth: true
+    },
     component: Home
   },
   {
@@ -146,6 +150,9 @@ const routes = [
   {
     path: "/psikotest",
     name: "Psikotes",
+    meta: {
+      needAuth: true
+    },
     component: () =>
       import(
         /* webpackChunkName: "JobVacancies" */ "../views/user/Psikotest.vue"
@@ -263,6 +270,33 @@ const routes = [
 const router = new VueRouter({
   mode: "history",
   routes
+});
+
+router.beforeEach(async (to, from, next) => {
+  const isAuthenticated = store.getters["auth/isAuthenticated"];
+
+  const requiredAuth = to.matched.some(record => record.meta.needAuth);
+  // console.log("required", requiredAuth);
+  // console.log("isAuthenticated", isAuthenticated);
+  try {
+    if (requiredAuth && !isAuthenticated) {
+      console.log("gagal");
+      next("/login");
+    } else if (requiredAuth && isAuthenticated) {
+      console.log("berhasil");
+      await store.dispatch("auth/getProfile");
+      next();
+    } else {
+      next();
+    }
+  } catch (error) {
+    // console.log(error.message);
+    if (error.message == 401) {
+      next("/login");
+    } else {
+      next();
+    }
+  }
 });
 
 export default router;

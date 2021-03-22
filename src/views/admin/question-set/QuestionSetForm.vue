@@ -22,6 +22,10 @@
                 :options="questionSetCategoryList"
               />
             </div>
+            <div class="mb-5">
+              <label class="mr-5">Is Active</label>
+              <t-checkbox v-model="getQuestionSet.isActive" :value="true" />
+            </div>
             <div>
               <label>Pick a Question</label>
               <div class="flex flex-row">
@@ -86,12 +90,7 @@ export default {
       selectedQuestionSetCategory: "",
       action: this.$route.params.action,
       id: this.$route.params.id,
-      questionSetCategoryList: ["Interview", "Psikotest", "Microteaching"]
-      // form: {
-      //   title: "",
-      //   questionSet: [],
-      //   questionCategory: ""
-      // }
+      questionSetCategoryList: ["", "Interview", "Psikotest", "Microteaching"]
     };
   },
   computed: {
@@ -110,7 +109,9 @@ export default {
     ]),
     ...mapActions("question", [FETCH_QUESTION_LISTS]),
     async fetchData() {
-      this[FETCH_QUESTION_LISTS]();
+      this[FETCH_QUESTION_LISTS]({
+        questionCategory: this.getQuestionSet.questionSetCategory
+      });
       if (this.action === "edit") {
         await this[FETCH_QUESTION_SET]({ id: this.id });
       } else {

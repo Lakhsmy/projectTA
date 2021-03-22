@@ -25,6 +25,7 @@
                 <input
                   class="w-full pl-3 py-4 rounded-lg text-xs placeholder-blueGray-400 font-semibold leading-none bg-blueGray-50 outline-none"
                   type="email"
+                  v-model="form.username"
                   placeholder="name@email.com"
                 />
                 <svg
@@ -49,6 +50,7 @@
               </label>
               <div class="flex flex-row">
                 <input
+                  v-model="form.password"
                   class="w-full pl-3 py-4 rounded-lg text-xs placeholder-blueGray-400 font-semibold leading-none bg-blueGray-50 outline-none"
                   :type="passwordField"
                   placeholder="Enter your password"
@@ -101,14 +103,21 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "Login",
   data() {
     return {
+      form: {
+        username: "",
+        password: ""
+      },
       passwordField: "password"
     };
   },
   methods: {
+    ...mapActions("auth", ["handleLogin"]),
     onShowPassword: function() {
       if (this.passwordField === "password") {
         this.passwordField = "text";
@@ -116,8 +125,13 @@ export default {
         this.passwordField = "password";
       }
     },
-    onLogin: function() {
-      this.$router.push("/");
+    async onLogin() {
+      try {
+        await this.handleLogin({ payload: this.form });
+        this.$router.push("/");
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };
