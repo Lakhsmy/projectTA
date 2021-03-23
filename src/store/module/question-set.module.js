@@ -17,6 +17,7 @@ const questionSet = {
     questionSetData: {
       title: "",
       questionSetCategory: "",
+      isActive: false,
       questionSet: []
     },
     createQuestionSet: {
@@ -59,7 +60,8 @@ const questionSet = {
       const questionSetData = {
         title: "",
         questionSetCategory: "",
-        questionSet: []
+        questionSet: [],
+        isActive: false
       };
       commit(SET_QUESTION_SET, questionSetData);
     },

@@ -31,6 +31,9 @@
                   {{ props.row.questionSetCategory }}
                 </td>
                 <td :class="props.tdClass">
+                  {{ props.row.isActive }}
+                </td>
+                <td :class="props.tdClass">
                   <t-button
                     :to="{
                       name: 'QuestionSetEdit',
@@ -69,7 +72,11 @@ export default {
         },
         {
           value: "questionType",
-          text: "Question Type"
+          text: "Question Category"
+        },
+        {
+          value: "is_active",
+          text: "Is Active"
         },
         {
           value: "actions",
