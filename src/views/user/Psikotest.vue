@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="mt-5">
-        <t-button>Submit</t-button>
+        <t-button @click="submitQuestion">Submit</t-button>
       </div>
 
       <!--      <div v-for="(value,key) in "></div>-->
@@ -76,7 +76,8 @@ import Dashboard from "@/components/Dashboard";
 import { mapActions, mapGetters } from "vuex";
 import {
   CREATE_CURRENT_USER_QUESTION_ANSWER,
-  FETCH_CURRENT_USER_QUESTION_ANSWER
+  FETCH_CURRENT_USER_QUESTION_ANSWER,
+  SUBMIT_CURRENT_USER_QUESTION_ANSWER
 } from "@/store/module/user-question-answer.module";
 
 export default {
@@ -92,7 +93,10 @@ export default {
     this.fetchData();
   },
   methods: {
-    ...mapActions("userQuestionAnswer", [FETCH_CURRENT_USER_QUESTION_ANSWER]),
+    ...mapActions("userQuestionAnswer", [
+      FETCH_CURRENT_USER_QUESTION_ANSWER,
+      SUBMIT_CURRENT_USER_QUESTION_ANSWER
+    ]),
     async fetchData() {
       await this[FETCH_CURRENT_USER_QUESTION_ANSWER]({ category: "Psikotest" });
     },
@@ -122,8 +126,15 @@ export default {
         questionId,
         answerId: event.target.value
       };
-
-      console.log(this.getUserQuestionAnswer);
+    },
+    submitQuestion() {
+      try {
+        this[SUBMIT_CURRENT_USER_QUESTION_ANSWER]({
+          payload: this.getUserQuestionAnswer
+        });
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };

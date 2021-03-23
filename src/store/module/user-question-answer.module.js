@@ -14,6 +14,8 @@ export const CREATE_CURRENT_USER_QUESTION_ANSWER =
   "createCurrentUserQuestionAnswer";
 export const RESET_USER_QUESTION_ANSWER = "resetUserQuestionAnswer";
 export const UPDATE_USER_QUESTION_ANSWER = "updateUserQuestionAnswer";
+export const SUBMIT_CURRENT_USER_QUESTION_ANSWER =
+  "submitCurrentUserQuestionAnswer";
 
 const userQuestionAnswer = {
   state: {
@@ -85,6 +87,23 @@ const userQuestionAnswer = {
         );
         commit(SET_USER_QUESTION_ANSWER, data);
       } catch (e) {
+        throw new Error(e.message);
+      }
+    },
+
+    async [SUBMIT_CURRENT_USER_QUESTION_ANSWER]({ commit }, { payload }) {
+      try {
+        const { data } = await axios.post(
+          `${process.env.VUE_APP_API_URL}/user-question-answer/submit-question`,
+          payload
+        );
+        return data;
+      } catch (e) {
+        console.log(e);
+        if (e.response.status > 400) {
+          let error = e.response.data;
+          commit(SET_USER_QUESTION_ANSWER, error);
+        }
         throw new Error(e.message);
       }
     },

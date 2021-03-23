@@ -1,4 +1,5 @@
 import axios from "axios";
+const SET_CREATE_APPLICANT = "setCreateApplicant";
 
 const state = {
   errorData: {
@@ -26,6 +27,9 @@ const mutations = {
   purgeAuth(state) {
     state.profile = {};
     state.token = "";
+  },
+  [SET_CREATE_APPLICANT]: (state, payload) => {
+    state.createApplicant = payload;
   }
 };
 const actions = {
@@ -79,6 +83,23 @@ const actions = {
       }
     } else {
       context.commit("purgeAuth");
+    }
+  },
+  async registerApplicant({ commit }, { payload }) {
+    try {
+      const { data } = await axios.post(
+        `${process.env.VUE_APP_API_URL}/auth`,
+        payload
+      );
+      const result = {
+        error: "",
+        statusCode: "",
+        message: []
+      };
+      commit(SET_CREATE_APPLICANT, result);
+      return data;
+    } catch (e) {
+      console.error(e);
     }
   },
 
