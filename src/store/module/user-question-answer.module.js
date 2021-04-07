@@ -73,7 +73,7 @@ const userQuestionAnswer = {
         const { data } = await axios.get(
           `${process.env.VUE_APP_API_URL}/user-question-answer/current/${category}`
         );
-        commit(SET_USER_QUESTION_ANSWER, data);
+        commit(SET_USER_QUESTION_ANSWER, data.data);
         return data;
       } catch (e) {
         throw new Error(e.message);

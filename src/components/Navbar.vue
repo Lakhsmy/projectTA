@@ -83,7 +83,7 @@
     >
       <a href="#" class="block px-4 py-2 hover:bg-gray-200">Account</a>
       <a href="#" class="block px-4 py-2 hover:bg-gray-200">Settings</a>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-200">Logout</a>
+      <a href="/login" class="block px-4 py-2 hover:bg-gray-200">Logout</a>
     </div>
     <!-- dropdown menu end -->
   </div>

@@ -9,18 +9,18 @@
 
         <div class="text-lg text-black mt-10 mx-0">
           <t-table
-            :headers="['Name', 'E-mail', 'Score', '']"
+            :headers="['Name', 'E-mail', 'Score', 'Action']"
             :data="[
               {
                 id: 1,
-                name: 'Alfonso Bribiesca',
-                email: 'alfonso@vexilo.com',
+                name: 'Cika cika',
+                email: 'cikacika@gmail.com',
                 is_approved: true
               },
               {
                 id: 2,
-                name: 'Saida Redondo',
-                email: 'saida@gmail.com',
+                name: 'Rizal rizal',
+                email: 'rizal.rizal@gmail.com',
                 is_approved: false
               }
             ]"
@@ -101,13 +101,13 @@
                         v-if="row.is_approved"
                         class="px-5 py-1 text-sm font-bold text-green-900 bg-green-200 rounded-full d-flex"
                       >
-                        0
+                        730
                       </span>
                       <span
                         v-else
                         class="px-5 py-1 text-sm font-bold text-gray-900 bg-gray-200 rounded-full d-flex"
                       >
-                        0
+                        690
                       </span>
                     </td>
                   </tr>
@@ -134,13 +134,13 @@
                     v-if="row.is_approved"
                     class="px-5 py-2 text-sm font-bold text-green-900 bg-green-200 rounded-full d-flex"
                   >
-                    0
+                    730
                   </span>
                   <span
                     v-else
                     class="px-5 py-2 text-sm font-bold text-gray-900 bg-gray-200 rounded-full d-flex"
                   >
-                    0
+                    690
                   </span>
                 </td>
                 <td :class="[tdClass, 'text-right']">

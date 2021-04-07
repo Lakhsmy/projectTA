@@ -74,7 +74,7 @@ const actions = {
         const response = await axios.get(
           `${process.env.VUE_APP_API_URL}/auth/profile`
         );
-        context.commit("setProfile", response.data.data);
+        context.commit("setProfile", response.data);
       } catch (error) {
         console.log("gagal disini");
         if (error.response && error.response.status === 401) {
@@ -88,7 +88,7 @@ const actions = {
   async registerApplicant({ commit }, { payload }) {
     try {
       const { data } = await axios.post(
-        `${process.env.VUE_APP_API_URL}/auth`,
+        `${process.env.VUE_APP_API_URL}/auth/register`,
         payload
       );
       const result = {

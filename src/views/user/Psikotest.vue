@@ -34,7 +34,7 @@
           </div>
         </div>
       </div>
-      <div class="mt-5">
+      <div class="mt-5" v-if="getUserQuestionAnswer !== null">
         <t-button @click="submitQuestion">Submit</t-button>
       </div>
 
@@ -95,6 +95,7 @@ export default {
   methods: {
     ...mapActions("userQuestionAnswer", [
       FETCH_CURRENT_USER_QUESTION_ANSWER,
+      CREATE_CURRENT_USER_QUESTION_ANSWER,
       SUBMIT_CURRENT_USER_QUESTION_ANSWER
     ]),
     async fetchData() {
@@ -103,12 +104,14 @@ export default {
     async takePsikotest() {
       console.log(this.getUserQuestionAnswer);
       if (
-        this.getUserQuestionAnswer === "" &&
+        this.getUserQuestionAnswer === "" ||
         this.getUserQuestionAnswer === null
       ) {
         await this[CREATE_CURRENT_USER_QUESTION_ANSWER]({
           category: "Psikotest"
         });
+
+        await this.fetchData();
       }
     },
     numberToAlphabet(value) {

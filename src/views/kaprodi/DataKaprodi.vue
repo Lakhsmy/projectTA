@@ -6,7 +6,7 @@
           DATA PELAMAR BARU
         </div>
         <hr class="mt-10 border-black" />
-        <div class="text-lg text-black mt-10 mx-10">
+        <!-- <div class="text-lg text-black mt-10 mx-10">
           <t-table
             :headers="['No', 'Nama', 'Email', 'Data Pelamar']"
             :data="[
@@ -15,7 +15,7 @@
             ]"
           >
           </t-table>
-        </div>
+        </div> -->
       </div>
     </div>
   </dashboard>

@@ -20,67 +20,15 @@
               <tr class="border-t border-blueGray-100">
                 <td class="flex px-6 py-4 text-xs">
                   <div class="pl-4">
-                    <p class="font-semibold">React</p>
+                    <p class="font-semibold">Cika cika</p>
                   </div>
                 </td>
                 <td class="px-4 py-2 text-xs">
                   <div class="py-1 px-3 text-xs font-semibold">
-                    React@gmail.com
+                    cikacika@gmail.com
                   </div>
                 </td>
-                <td class="px-4 py-2 text-xs font-semibold">576</td>
-              </tr>
-              <tr class="border-t border-blueGray-100">
-                <td class="flex px-6 py-4 text-xs">
-                  <div class="pl-4">
-                    <p class="font-semibold">React</p>
-                  </div>
-                </td>
-                <td class="px-4 py-2 text-xs">
-                  <div class="py-1 px-3 text-xs font-semibold">
-                    React@gmail.com
-                  </div>
-                </td>
-                <td class="px-4 py-2 text-xs font-semibold">576</td>
-              </tr>
-              <tr class="border-t border-blueGray-100">
-                <td class="flex px-6 py-4 text-xs">
-                  <div class="pl-4">
-                    <p class="font-semibold">React</p>
-                  </div>
-                </td>
-                <td class="px-4 py-2 text-xs">
-                  <div class="py-1 px-3 text-xs font-semibold">
-                    React@gmail.com
-                  </div>
-                </td>
-                <td class="px-4 py-2 text-xs font-semibold">576</td>
-              </tr>
-              <tr class="border-t border-blueGray-100">
-                <td class="flex px-6 py-4 text-xs">
-                  <div class="pl-4">
-                    <p class="font-semibold">React</p>
-                  </div>
-                </td>
-                <td class="px-4 py-2 text-xs">
-                  <div class="py-1 px-3 text-xs font-semibold">
-                    React@gmail.com
-                  </div>
-                </td>
-                <td class="px-4 py-2 text-xs font-semibold">576</td>
-              </tr>
-              <tr class="border-t border-blueGray-100">
-                <td class="flex px-6 py-4 text-xs">
-                  <div class="pl-4">
-                    <p class="font-semibold">React</p>
-                  </div>
-                </td>
-                <td class="px-4 py-2 text-xs">
-                  <div class="py-1 px-3 text-xs font-semibold">
-                    React@gmail.com
-                  </div>
-                </td>
-                <td class="px-4 py-2 text-xs font-semibold">576</td>
+                <td class="px-4 py-2 text-xs font-semibold">730</td>
               </tr>
             </tbody>
           </table>
