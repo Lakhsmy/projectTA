@@ -14,22 +14,44 @@
             Pria/Wanita, usia max 40 th
           </li>
           <li>
-            Pendidikan S2/S3
+            Memiliki gelar Doktor (S3) untuk bidang yang sesuai dengan Program
+            Studi di Lingkungan Universitas Pembangunan Jaya, yaitu
+            Arsitektur/Teknil Sipil/Sistem Informasi/Informatika/Desain
+            Komunikasi Visual/Desain Produk/Akuntansi/Manajemen/Ilmu
+            Komunikasi/Psikologi
           </li>
           <li>
             Lulusan dalam/luar negeri
           </li>
           <li>
-            Diutamakan yang memiliki pengalaman mengajar minimal 2 th
+            Memiliki pengalaman minimal 3 tahun mengajar pada Pendidikan Tinggi
           </li>
           <li>
             Mampu Bekerja sama dalam tim
           </li>
           <li>
-            Berinegritas dan bertanggung jawab
+            Menjunjung tinggi nilai integritas dan institusi secara martabat
           </li>
           <li>
-            Domisili di sekitar Bintaro Jaya menjadi nilai tambah
+            Bersedia untuk mematuhi seluruh peraturan yang berlaku di UPJ maupun
+            Yayasan Pendidikan Jaya
+          </li>
+          <li>
+            Memiliki publikasi nasioanl/international dan memiliki h-index
+          </li>
+          <li>
+            Memiliki NIDN dan JAD minimal Asistem Ahli
+          </li>
+          <li>
+            Memiliki kemampuan berbahasa inggris yang baik (TOEFL 570/IELTS
+            7/TOEIC 550) dibuktikan dengan hasil test yang masih berlaku
+          </li>
+          <li>
+            Memiliki kemampuan komunikasi interpersonal yang baik
+          </li>
+          <li>
+            Memiliki kemampuan kepemimpinan, kompetensi akademik, manajerial dan
+            entrepreneurial
           </li>
         </ol>
         <!--        <p class="mt-5">1. Pria/Wanita, usia max 40 th</p>-->

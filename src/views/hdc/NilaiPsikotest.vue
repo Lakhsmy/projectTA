@@ -121,7 +121,22 @@
                   {{ row.isPassed }}
                 </td>
                 <td :class="[tdClass, 'text-center']">
+                  <<<<<<< HEAD
                   {{ row.totalScore }}
+                  =======
+                  <span
+                    v-if="row.is_approved"
+                    class="px-5 py-2 text-sm font-bold text-green-900 bg-green-200 rounded-full d-flex"
+                  >
+                    730
+                  </span>
+                  <span
+                    v-else
+                    class="px-5 py-2 text-sm font-bold text-gray-900 bg-gray-200 rounded-full d-flex"
+                  >
+                    690
+                  </span>
+                  >>>>>>> d548ab41c6b923fbc72aea94abff93d81550778d
                 </td>
                 <td :class="[tdClass, 'text-center']">
                   <div v-if="row.status == 1">
