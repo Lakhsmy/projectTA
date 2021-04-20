@@ -1,31 +1,24 @@
 <template>
   <dashboard>
-    <div class="flex w-full p-5  flex-grow h-full">
-      <div class="p-5 w-full">
+    <div class="flex w-full p-5 flex-grow h-full">
+      <t-card class="p-5 w-full">
         <div class="text-2xl text-black mt-5 mx-5 font-bold text-center">
-          HASIL NILAI INTERVIEW TAHAP 1
+          HASIL NILAI INTERVIEW PELAMAR
         </div>
         <hr class="mt-10 border-black" />
 
         <div class="text-lg text-black mt-10 mx-0">
           <t-table
-            :headers="['Name', 'E-mail', 'Score', '']"
-            :data="[
-              {
-                id: 1,
-                name: 'Alfonso Bribiesca',
-                email: 'alfonso@vexilo.com',
-                is_approved: true
-              },
-              {
-                id: 2,
-                name: 'Saida Redondo',
-                email: 'saida@gmail.com',
-                is_approved: false
-              }
+            :headers="[
+              'Name',
+              'E-mail',
+              'Status',
+              'Is Passed',
+              'Score',
+              'Action'
             ]"
+            :data="userResultList"
             :responsive="true"
-            :responsive-breakpoint="520"
           >
             <template
               slot="tbody"
@@ -33,7 +26,6 @@
                 tbodyClass,
                 trClass,
                 tdClass,
-
                 renderResponsive,
                 data
               }"
@@ -48,67 +40,60 @@
                     <th class="text-sm font-semibold text-gray-600 uppercase">
                       Name
                     </th>
-                    <td :class="[tdClass, 'relative']">
-                      <t-dropdown class="absolute top-0 right-0">
-                        <template slot="button">
-                          <svg
-                            version="1.1"
-                            viewBox="0 0 16 16"
-                            class="text-gray-600 fill-current svg-icon svg-fill"
-                            heigth="20"
-                            style="width: 20px;"
-                          >
-                            <path
-                              pid="0"
-                              d="M13 7a2 2 0 1 1 .001 3.999A2 2 0 0 1 13 7zM8 7a2 2 0 1 1 .001 3.999A2 2 0 0 1 8 7zM3 7a2 2 0 1 1 .001 3.999A2 2 0 0 1 3 7z"
-                            />
-                          </svg>
-                        </template>
-                        <button
-                          class="block w-full px-4 py-2 text-left text-gray-800 hover:text-white hover:bg-blue-500"
-                        >
-                          Approve
-                        </button>
-                        <button
-                          class="block w-full px-4 py-2 text-left text-gray-800 hover:text-white hover:bg-blue-500"
-                        >
-                          Disagree
-                        </button>
-                      </t-dropdown>
-                      {{ row.name }}
+                    <td :class="[tdClass, 'td-overflow']">
+                      {{ row.candidate.fullName }}
                     </td>
                   </tr>
                   <tr :class="trClass">
-                    <div class="flex mx-5">
-                      <th class="text-sm font-semibold text-gray-600 uppercase">
-                        Email
-                      </th>
-                      <td :class="[tdClass, 'td-overflow']">
-                        <a
-                          :href="`mailto: ${row.email}`"
-                          class="text-gray-600 hover:underline"
-                          >{{ row.email }}</a
-                        >
-                      </td>
-                    </div>
+                    <!-- <div class="flex"> -->
+                    <th class="text-sm font-semibold text-gray-600 uppercase">
+                      Email
+                    </th>
+                    <td :class="[tdClass, 'td-overflow']">
+                      <a
+                        :href="`mailto: ${row.candidate.email}`"
+                        class="text-gray-600 hover:underline break-all"
+                        >{{ row.candidate.email }}</a
+                      >
+                    </td>
+                    <!-- </div> -->
                   </tr>
                   <tr :class="trClass">
                     <th class="text-sm font-semibold text-gray-600 uppercase">
                       Status
                     </th>
                     <td :class="[tdClass]">
-                      <span
-                        v-if="row.is_approved"
-                        class="px-5 py-1 text-sm font-bold text-green-900 bg-green-200 rounded-full d-flex"
+                      <status-button :status="row.status" />
+                    </td>
+                  </tr>
+                  <tr :class="trClass">
+                    <th :class="[tdClass]">
+                      Is Passed
+                    </th>
+                    <td>
+                      {{ row.isPassed }}
+                    </td>
+                  </tr>
+                  <tr :class="trClass">
+                    <th
+                      :class="[tdClass]"
+                      class="text-sm font-semibold text-gray-600 uppercase"
+                    >
+                      Action
+                    </th>
+                    <td class="flex">
+                      <button
+                        class="rounded-lg px-4 py-2 text-left text-gray-800 bg-yellow-300 hover:text-white hover:bg-blue-500"
+                        @click="onChangeStatus(row._id, 2)"
                       >
-                        0
-                      </span>
-                      <span
-                        v-else
-                        class="px-5 py-1 text-sm font-bold text-gray-900 bg-gray-200 rounded-full d-flex"
+                        Approve
+                      </button>
+                      <button
+                        class="rounded-lg px-4 py-2 text-left text-white bg-red-500 hover:text-white hover:bg-blue-500"
+                        @click="onChangeStatus(row._id, 3)"
                       >
-                        0
-                      </span>
+                        Disagree
+                      </button>
                     </td>
                   </tr>
                 </tbody>
@@ -119,57 +104,40 @@
               slot-scope="{ trClass, tdClass, rowIndex, row }"
             >
               <tr :class="[trClass, rowIndex % 2 === 0 ? 'bg-gray-100' : '']">
-                <td :class="[tdClass, 'w-full']">
-                  {{ row.name }}
+                <td :class="[tdClass]">
+                  {{ row.candidate.fullName }}
                 </td>
                 <td :class="tdClass">
                   <a
-                    :href="`mailto: ${row.email}`"
+                    :href="`mailto: ${row.candidate.email}`"
                     class="text-gray-600 hover:underline"
-                    >{{ row.email }}</a
+                    >{{ row.candidate.email }}</a
                   >
+                </td>
+                <td :class="[tdClass]">
+                  <status-button :status="row.status" />
+                </td>
+                <td :class="[tdClass]">
+                  {{ row.isPassed }}
                 </td>
                 <td :class="[tdClass, 'text-center']">
-                  <span
-                    v-if="row.is_approved"
-                    class="px-5 py-2 text-sm font-bold text-green-900 bg-green-200 rounded-full d-flex"
-                  >
-                    0
-                  </span>
-                  <span
-                    v-else
-                    class="px-5 py-2 text-sm font-bold text-gray-900 bg-gray-200 rounded-full d-flex"
-                  >
-                    0
-                  </span>
+                  {{ row.totalScore }}
                 </td>
-                <td :class="[tdClass, 'text-right']">
-                  <t-dropdown>
-                    <template slot="button">
-                      <svg
-                        version="1.1"
-                        viewBox="0 0 16 16"
-                        class="text-gray-600 fill-current svg-icon svg-fill"
-                        heigth="20"
-                        style="width: 20px;"
-                      >
-                        <path
-                          pid="0"
-                          d="M13 7a2 2 0 1 1 .001 3.999A2 2 0 0 1 13 7zM8 7a2 2 0 1 1 .001 3.999A2 2 0 0 1 8 7zM3 7a2 2 0 1 1 .001 3.999A2 2 0 0 1 3 7z"
-                        />
-                      </svg>
-                    </template>
+                <td :class="[tdClass, 'text-center']">
+                  <div v-if="row.status == 1">
                     <button
-                      class="block w-full px-4 py-2 text-left text-gray-800 hover:text-white hover:bg-blue-500"
+                      class="rounded-lg px-4 py-2 text-left mb-2 text-gray-800 bg-yellow-300 hover:text-white hover:bg-blue-500"
+                      @click="onChangeStatus(row._id, 2)"
                     >
                       Approve
                     </button>
                     <button
-                      class="block w-full px-4 py-2 text-left text-gray-800 hover:text-white hover:bg-blue-500"
+                      class="rounded-lg px-4 py-2 text-left text-white bg-red-500 hover:text-white hover:bg-blue-500"
+                      @click="onChangeStatus(row._id, 3)"
                     >
                       Disagree
                     </button>
-                  </t-dropdown>
+                  </div>
                 </td>
               </tr>
             </template>
@@ -181,9 +149,11 @@
                 <tr :class="trClass">
                   <td :class="tdClass" :colspan="renderResponsive ? 2 : 4">
                     <t-pagination
+                      class="mt-3"
                       :hide-prev-next-controls="renderResponsive"
-                      :total-items="100"
+                      :total-items="userResultList.length"
                       :per-page="renderResponsive ? 3 : 5"
+                      v-model="currentPage"
                       :class="{
                         'ml-auto': !renderResponsive,
                         'mx-auto': renderResponsive
@@ -195,15 +165,41 @@
             </template>
           </t-table>
         </div>
-      </div>
+      </t-card>
     </div>
   </dashboard>
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 import Dashboard from "../../components/Dashboard.vue";
+import StatusButton from "../../components/StatusButton.vue";
+
 export default {
-  name: "NilaiInterviewSatu",
-  components: { Dashboard }
+  name: "NilaiInterview",
+  components: { Dashboard, StatusButton },
+  data() {
+    return { currentPage: 1 };
+  },
+  computed: {
+    ...mapState("userQuestionAnswer", ["userResultList"])
+  },
+  async mounted() {
+    await this.fetchData();
+  },
+  methods: {
+    ...mapActions("userQuestionAnswer", [
+      "getAllUserQuestionAnswer",
+      "changeQuestionStatus"
+    ]),
+    async fetchData() {
+      await this.getAllUserQuestionAnswer({ category: "Interview" });
+    },
+
+    async bonChangeStatus(id, status) {
+      await this.changeQuestionStatus({ id, status });
+      await this.fetchData();
+    }
+  }
 };
 </script>

@@ -93,12 +93,6 @@ const routes = [
   },
   //--------------------------- HDC ----------------------------//
   {
-    path: "/data-hdc",
-    name: "DataHdc",
-    component: () =>
-      import(/* webpackChunkName: "JobVacancies" */ "../views/hdc/DataHdc.vue")
-  },
-  {
     path: "/nilai-psikotest",
     name: "NilaiPsikotest",
     component: () =>
@@ -123,14 +117,6 @@ const routes = [
       )
   },
   //--------------------------- KAPRODI ----------------------------//
-  {
-    path: "/data-kaprodi",
-    name: "DataKaprodi",
-    component: () =>
-      import(
-        /* webpackChunkName: "JobVacancies" */ "../views/kaprodi/DataKaprodi.vue"
-      )
-  },
   {
     path: "/form-interview-satu",
     name: "FormInterviewSatu",
@@ -184,14 +170,6 @@ const routes = [
       )
   },
   //--------------------------- REKTORAT ----------------------------//
-  {
-    path: "/data-rektorat", //pengumuman hasil SAW tahap 1
-    name: "DataRektorat",
-    component: () =>
-      import(
-        /* webpackChunkName: "JobVacancies" */ "../views/rektorat/DataRektorat.vue"
-      )
-  },
   {
     path: "/nilai-interview-dua", //pengumuman hasil SAW tahap 1
     name: "NilaiInterviewDua",
@@ -269,7 +247,14 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
+    }
+  }
 });
 
 router.beforeEach(async (to, from, next) => {

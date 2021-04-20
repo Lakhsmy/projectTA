@@ -16,6 +16,7 @@ export const RESET_USER_QUESTION_ANSWER = "resetUserQuestionAnswer";
 export const UPDATE_USER_QUESTION_ANSWER = "updateUserQuestionAnswer";
 export const SUBMIT_CURRENT_USER_QUESTION_ANSWER =
   "submitCurrentUserQuestionAnswer";
+export const CALCULATE_USER_QUESTION_ANSWER = "calculateUserQuestion";
 
 const userQuestionAnswer = {
   state: {
@@ -26,7 +27,10 @@ const userQuestionAnswer = {
       error: "",
       statusCode: "",
       message: []
-    }
+    },
+    userResultList: [],
+    userInterviewList: [],
+    userMicroteachingList: []
   },
   getters: {
     getUserQuestionAnswerList: state => {
@@ -45,6 +49,9 @@ const userQuestionAnswer = {
     },
     [SET_USER_QUESTION_ANSWER]: (state, payload) => {
       state.userQuestionAnswer = payload;
+    },
+    setUserResultList: (state, payload) => {
+      state.userResultList = payload;
     }
   },
   actions: {
@@ -57,6 +64,32 @@ const userQuestionAnswer = {
       } catch (e) {
         console.error(e);
       }
+    },
+    async changeQuestionStatus(context, { id, status }) {
+      const payload = {
+        status
+      };
+      await axios.post(
+        `${process.env.VUE_APP_API_URL}/user-question-answer/change-status/${id}`,
+        payload
+      );
+    },
+    async getAllUserQuestionAnswer(
+      { commit },
+      { category, status } = { category: null, status: null }
+    ) {
+      const params = new URLSearchParams();
+      if (category != null) {
+        params.append("category", category);
+      }
+      if (status != null) {
+        params.append("status", status);
+      }
+
+      const { data } = await axios.get(
+        `${process.env.VUE_APP_API_URL}/user-question-answer?${params}`
+      );
+      commit("setUserResultList", data);
     },
     async [RESET_USER_QUESTION_ANSWER]({ commit }) {
       const questionSetData = {
@@ -73,8 +106,8 @@ const userQuestionAnswer = {
         const { data } = await axios.get(
           `${process.env.VUE_APP_API_URL}/user-question-answer/current/${category}`
         );
-        commit(SET_USER_QUESTION_ANSWER, data);
-        return data;
+        commit(SET_USER_QUESTION_ANSWER, data.data);
+        return data.data;
       } catch (e) {
         throw new Error(e.message);
       }
@@ -104,6 +137,26 @@ const userQuestionAnswer = {
           let error = e.response.data;
           commit(SET_USER_QUESTION_ANSWER, error);
         }
+        throw new Error(e.message);
+      }
+    },
+
+    async [CALCULATE_USER_QUESTION_ANSWER]({ commit }, { _id, category }) {
+      try {
+        const { data } = await axios.post(
+          `${process.env.VUE_APP_API_URL}/user-question-answer/calculate`,
+          {
+            _id,
+            category
+          }
+        );
+        return data;
+      } catch (e) {
+        if (e.response.status > 400) {
+          let error = e.response.data;
+          commit(SET_USER_QUESTION_ANSWER_ERROR, error);
+        }
+
         throw new Error(e.message);
       }
     },

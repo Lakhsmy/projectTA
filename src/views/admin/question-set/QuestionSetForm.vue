@@ -90,7 +90,13 @@ export default {
       selectedQuestionSetCategory: "",
       action: this.$route.params.action,
       id: this.$route.params.id,
-      questionSetCategoryList: ["", "Interview", "Psikotest", "Microteaching"]
+      questionSetCategoryList: [
+        "",
+        "Interview",
+        "Psikotest",
+        "Microteaching",
+        "Evaluation"
+      ]
     };
   },
   computed: {

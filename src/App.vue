@@ -6,6 +6,6 @@
 
 <style>
 .ps {
-  height: 500px;
+  height: 600px;
 }
 </style>

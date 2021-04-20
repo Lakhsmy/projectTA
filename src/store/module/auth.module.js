@@ -47,7 +47,6 @@ const actions = {
       //data user yang sudah di ambil kemdian di se ke variable setprofile dengan
       context.commit("setProfile", data.user);
       context.commit("setToken", data.access_token);
-      localStorage.setItem("token", data.access_token);
       return data;
     } catch (error) {
       let errorMessage = "";
@@ -74,7 +73,7 @@ const actions = {
         const response = await axios.get(
           `${process.env.VUE_APP_API_URL}/auth/profile`
         );
-        context.commit("setProfile", response.data.data);
+        context.commit("setProfile", response.data);
       } catch (error) {
         console.log("gagal disini");
         if (error.response && error.response.status === 401) {
@@ -88,7 +87,7 @@ const actions = {
   async registerApplicant({ commit }, { payload }) {
     try {
       const { data } = await axios.post(
-        `${process.env.VUE_APP_API_URL}/auth`,
+        `${process.env.VUE_APP_API_URL}/auth/register`,
         payload
       );
       const result = {
@@ -100,12 +99,13 @@ const actions = {
       return data;
     } catch (e) {
       console.error(e);
+      return e;
     }
   },
 
   async handleLogOut(context) {
     try {
-      await axios.get(`${process.env.VUE_APP_API_URL}/api/auth`);
+      // await axios.get(`${process.env.VUE_APP_API_URL}/api/auth`);
       context.commit("purgeAuth");
     } catch (error) {
       console.error(error);

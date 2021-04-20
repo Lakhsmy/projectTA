@@ -81,21 +81,30 @@
       class="absolute bg-gray-100 border border-t-0 shadow-xl text-gray-700 rounded-b-lg w-48 top-20 right-0 mr-6"
       :class="dropDownOpen ? '' : 'hidden'"
     >
+      <div class="px-4 py-2 font-bold hover:bg-gray-200">
+        {{ profile.fullName }}
+      </div>
       <a href="#" class="block px-4 py-2 hover:bg-gray-200">Account</a>
       <a href="#" class="block px-4 py-2 hover:bg-gray-200">Settings</a>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-200">Logout</a>
+      <button
+        class="block w-full px-4 py-2 hover:bg-gray-200"
+        @click="onLogout"
+      >
+        Logout
+      </button>
     </div>
     <!-- dropdown menu end -->
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "Navbar",
   computed: {
-    ...mapState(["sideBarOpen"])
+    ...mapState(["sideBarOpen"]),
+    ...mapState("auth", ["profile"])
   },
   data() {
     return {
@@ -103,10 +112,14 @@ export default {
     };
   },
   methods: {
+    ...mapActions("auth", ["handleLogOut"]),
     toggleSidebar() {
       this.$store.dispatch("toggleSidebar");
     },
-    onLogout() {}
+    async onLogout() {
+      await this.handleLogOut();
+      await this.$router.replace("/login");
+    }
   }
 };
 </script>

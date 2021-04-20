@@ -1,14 +1,14 @@
 <template>
   <dashboard>
-    <div class="flex justify-center p-5  flex-grow h-full">
+    <div class="flex justify-center p-0 lg:p-5 flex-grow h-full">
       <div class="p-5 bg-white rounded-xl w-full">
         <div class="text-2xl text-black mt-5 mx-5 font-bold text-center">
           Data Pelamar
         </div>
         <hr class="mt-5 border-black" />
 
-        <div class="text-black mt-10 mx-5 overflow-x-auto">
-          <t-table :headers="headers" :data="getApplicantList">
+        <div class="text-black mt-10 mx-0 lg:mx-5 overflow-x-auto">
+          <t-table :headers="headers" :data="userList">
             <template slot="row" slot-scope="props">
               <tr
                 :class="[
@@ -39,7 +39,7 @@
 
 <script>
 import Dashboard from "@/components/Dashboard";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   components: { Dashboard },
   name: "Job",
@@ -66,15 +66,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("auth", ["getApplicantList"])
+    ...mapState("user", ["userList"])
   },
   mounted() {
     this.fetchData();
   },
   methods: {
-    ...mapActions("auth", ["fetchApplicantList"]),
+    ...mapActions("user", ["fetchUserList"]),
     fetchData() {
-      this.fetchApplicantList();
+      this.fetchUserList();
     }
   }
 };

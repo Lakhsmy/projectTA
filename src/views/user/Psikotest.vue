@@ -24,10 +24,12 @@
               :key="answerIndex"
             >
               {{ numberToAlphabet(answerValue.optionNumber) }}.
-              <t-radio
+              <input
+                type="radio"
                 :name="`options[${key}]`"
                 :value="answerValue._id"
-                @change="onChangeAnswer($event, value._id, answerIndex)"
+                @change="onChangeAnswer($event, value._id, key)"
+                :checked="checkedValue(value._id, answerValue._id)"
               />
               {{ answerValue.answerBody }}
             </div>
@@ -35,35 +37,11 @@
         </div>
       </div>
       <div class="mt-5">
-        <t-button @click="submitQuestion">Submit</t-button>
+        <t-button v-if="getUserQuestionAnswer !== null" @click="submitQuestion"
+          >Submit</t-button
+        >
       </div>
 
-      <!--      <div v-for="(value,key) in "></div>-->
-      <!--      <div v-for="(value, key) in questionList" :key="key">-->
-      <!--        <div class="mt-5">-->
-      <!--          {{ value.question }}-->
-      <!--        </div>-->
-      <!--        <div class="flex flex-row ">-->
-      <!--          <div class="mx-5">-->
-      <!--            <t-radio name="options" :value="value.a" />-->
-      <!--            {{ value.a }}-->
-      <!--          </div>-->
-      <!--          <div class="mx-28">-->
-      <!--            <t-radio name="options" :value="value.b" />-->
-      <!--            {{ value.b }}-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--        <div class="flex flex-row">-->
-      <!--          <div class="mx-5">-->
-      <!--            <t-radio name="options" :value="value.c" />-->
-      <!--            {{ value.c }}-->
-      <!--          </div>-->
-      <!--          <div class="mx-28">-->
-      <!--            <t-radio name="options" :value="value.d" />-->
-      <!--            {{ value.d }}-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
       <t-button v-if="getUserQuestionAnswer === null" @click="takePsikotest">
         Take Psikotest
       </t-button>
@@ -75,6 +53,7 @@
 import Dashboard from "@/components/Dashboard";
 import { mapActions, mapGetters } from "vuex";
 import {
+  CALCULATE_USER_QUESTION_ANSWER,
   CREATE_CURRENT_USER_QUESTION_ANSWER,
   FETCH_CURRENT_USER_QUESTION_ANSWER,
   SUBMIT_CURRENT_USER_QUESTION_ANSWER
@@ -95,7 +74,8 @@ export default {
   methods: {
     ...mapActions("userQuestionAnswer", [
       FETCH_CURRENT_USER_QUESTION_ANSWER,
-      SUBMIT_CURRENT_USER_QUESTION_ANSWER
+      SUBMIT_CURRENT_USER_QUESTION_ANSWER,
+      CALCULATE_USER_QUESTION_ANSWER
     ]),
     async fetchData() {
       await this[FETCH_CURRENT_USER_QUESTION_ANSWER]({ category: "Psikotest" });
@@ -103,12 +83,13 @@ export default {
     async takePsikotest() {
       console.log(this.getUserQuestionAnswer);
       if (
-        this.getUserQuestionAnswer === "" &&
+        this.getUserQuestionAnswer === "" ||
         this.getUserQuestionAnswer === null
       ) {
         await this[CREATE_CURRENT_USER_QUESTION_ANSWER]({
           category: "Psikotest"
         });
+        await this.fetchData();
       }
     },
     numberToAlphabet(value) {
@@ -122,15 +103,25 @@ export default {
       return alphabetObject[value];
     },
     onChangeAnswer(event, questionId, key) {
+      console.log(key);
       this.getUserQuestionAnswer.questionAnswers[key] = {
         questionId,
         answerId: event.target.value
       };
     },
-    submitQuestion() {
+    checkedValue(questionId, answerId) {
+      return this.getUserQuestionAnswer.questionAnswers.some(
+        value => value.questionId === questionId && value.answerId === answerId
+      );
+    },
+    async submitQuestion() {
       try {
-        this[SUBMIT_CURRENT_USER_QUESTION_ANSWER]({
+        await this[SUBMIT_CURRENT_USER_QUESTION_ANSWER]({
           payload: this.getUserQuestionAnswer
+        });
+        await this[CALCULATE_USER_QUESTION_ANSWER]({
+          _id: this.getUserQuestionAnswer._id,
+          category: this.getUserQuestionAnswer.category
         });
       } catch (e) {
         console.log(e);
