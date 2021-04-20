@@ -107,7 +107,13 @@ export default {
       action: this.$route.params.action,
       id: this.$route.params.id,
       questionTypeList: ["", "MultipleChoice"],
-      questionCategoryList: ["", "Interview", "Psikotest", "Microteaching"],
+      questionCategoryList: [
+        "",
+        "Interview",
+        "Psikotest",
+        "Microteaching",
+        "Evaluation"
+      ],
       form: {
         question: "",
         answerOptions: [],
