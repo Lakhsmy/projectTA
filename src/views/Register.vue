@@ -122,6 +122,29 @@
                 />
               </div>
             </div>
+            <!-- <div
+              class="flex flex-col justify-start mb-4 px-4 bg-blueGray-50 rounded"
+            >
+              <label class="text-left"
+                >Link to drive where your CV file is stored</label
+              >
+              <div class="flex flex-row">
+                <t-input v-model="form.cv" data-test="cv" name="my-input" />
+              </div>
+            </div> -->
+            <form
+              action="/action_page.php"
+              class="flex flex-col justify-start mb-4 px-4 bg-blueGray-50 rounded"
+            >
+              <label class="text-left">Unggah CV</label>
+              <t-input
+                type="file"
+                id="cv"
+                data-test="cv"
+                name="my-input"
+                v-model="form.cv"
+              />
+            </form>
             <button
               class="block w-full p-4 text-center text-xs text-white font-semibold leading-none bg-blue-600 hover:bg-blue-700 rounded"
               data-test="registerButton"
@@ -153,6 +176,7 @@ export default {
         latestEducation: "",
         ipk: 0,
         major: "",
+        cv: "",
         password: ""
       },
       showPassword: false,

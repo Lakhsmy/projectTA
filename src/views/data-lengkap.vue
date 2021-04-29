@@ -3,7 +3,7 @@
     <div class="flex justify-center p-0 lg:p-5 flex-grow h-full">
       <div class="p-5 bg-white rounded-xl w-full">
         <div class="text-2xl text-black mt-5 mx-5 font-bold text-center">
-          Data Pelamar
+          Data Lengkap Pelamar
         </div>
         <hr class="mt-5 border-black" />
 
@@ -16,21 +16,30 @@
                   // props.rowIndex % 2 === 0 ? 'bg-gray-100' : ''
                 ]"
               >
-                <td :class="props.tdClass">
+                <!-- <td :class="props.tdClass">
                   {{ props.row._id }}
-                </td>
+                </td> -->
                 <td :class="props.tdClass">
                   {{ props.row.fullName }}
                 </td>
                 <td :class="props.tdClass">
                   {{ props.row.email }}
                 </td>
-                <router-link
-                  to="/data-lengkap"
-                  class="mt-3 block text-center text-blue-600 w-full focus:outline-none"
-                >
-                  selengkapnya
-                </router-link>
+                <td :class="props.tdClass">
+                  {{ props.row.latestEducation }}
+                </td>
+                <td :class="props.tdClass">
+                  {{ props.row.major }}
+                </td>
+                <td :class="props.tdClass">
+                  {{ props.row.ipk }}
+                </td>
+                <td :class="props.tdClass">
+                  <a :href="props.row.cv" target="_blank">lihat</a>
+                </td>
+
+                <!-- <a href="userList.cv" target="_blank">lihat</a> -->
+
                 <!-- <td :class="props.tdClass">
                   <t-button variant="secondary">selengkapnya</t-button>
                 </td> -->
@@ -52,10 +61,10 @@ export default {
   data() {
     return {
       headers: [
-        {
-          value: "_id",
-          text: "ID"
-        },
+        // {
+        //   value: "_id",
+        //   text: "ID"
+        // },
         {
           value: "fullName",
           text: "Fullname"
@@ -65,8 +74,20 @@ export default {
           text: "Email"
         },
         {
-          value: "actions",
-          text: "Actions"
+          value: "latestEducation",
+          text: "Pendidikan Terakhir"
+        },
+        {
+          value: "major",
+          text: "Jurusan Terpilih"
+        },
+        {
+          value: "ipk",
+          text: "IPK"
+        },
+        {
+          value: "cv",
+          text: "CV"
         }
       ]
     };

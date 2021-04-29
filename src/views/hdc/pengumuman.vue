@@ -3,7 +3,7 @@
     <div class="flex w-full p-5 flex-grow h-full">
       <div class="p-5 w-full">
         <div class="text-2xl text-black mt-5 mx-5 font-bold text-center">
-          HASIL PELAMAR LOLOS
+          HASIL PELAMAR LOLOS TAHAP PSIKOTEST
         </div>
         <hr class="mt-10 border-black" />
 
@@ -11,7 +11,7 @@
           <table class="w-full bg-white rounded shadow">
             <thead>
               <tr class="text-left text-xs">
-                <th class="pl-6 py-4 font-bold">Nama</th>
+                <th class="pl-6 py-4 font-bold">Fullname</th>
                 <th class="pl-6 py-4 font-bold">Email</th>
                 <th class="px-4 py-4 font-bold">Score</th>
               </tr>

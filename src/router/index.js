@@ -194,6 +194,12 @@ const routes = [
         /* webpackChunkName: "JobVacancies" */ "../views/rektorat/TahapDua.vue"
       )
   },
+  {
+    path: "/data-lengkap", //pengumuman hasil SAW tahap 1
+    name: "data-lengkap",
+    component: () =>
+      import(/* webpackChunkName: "JobVacancies" */ "../views/data-lengkap.vue")
+  },
   //---------------------------- REGISTRATION -------------------------//
   {
     path: "/question",
