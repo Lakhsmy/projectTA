@@ -196,7 +196,7 @@ export default {
       await this.getAllUserQuestionAnswer({ category: "Interview" });
     },
 
-    async bonChangeStatus(id, status) {
+    async onChangeStatus(id, status) {
       await this.changeQuestionStatus({ id, status });
       await this.fetchData();
     }
