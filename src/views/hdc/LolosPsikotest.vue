@@ -66,7 +66,7 @@
               slot-scope="{ trClass, tdClass, rowIndex, row }"
             >
               <tr :class="[trClass, rowIndex % 2 === 0 ? 'bg-gray-100' : '']">
-                <td :class="[tdClass, 'w-full']">
+                <td :class="[tdClass]">
                   {{ row.candidate.fullName }}
                 </td>
                 <td :class="tdClass">
