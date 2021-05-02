@@ -73,6 +73,7 @@ export default {
   },
   methods: {
     ...mapActions("userQuestionAnswer", [
+      CREATE_CURRENT_USER_QUESTION_ANSWER,
       FETCH_CURRENT_USER_QUESTION_ANSWER,
       SUBMIT_CURRENT_USER_QUESTION_ANSWER,
       CALCULATE_USER_QUESTION_ANSWER
