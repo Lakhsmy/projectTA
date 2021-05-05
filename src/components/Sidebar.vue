@@ -141,7 +141,7 @@
           </div>
           <div>
             <router-link
-              to="/pengumuman"
+              to="/pengumuman-psikotest"
               exact
               exact-active-class="bg-gray-200"
               class="w-full flex items-center text-blue-400 h-10 pl-4 hover:bg-gray-200 rounded-lg cursor-pointer"

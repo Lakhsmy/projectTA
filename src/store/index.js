@@ -5,6 +5,7 @@ import user from "./module/user.module";
 import question from "./module/question.module";
 import questionSet from "./module/question-set.module";
 import userQuestionAnswer from "./module/user-question-answer.module";
+import saw from "./module/saw.module";
 import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
@@ -33,7 +34,8 @@ export default new Vuex.Store({
     user,
     question,
     questionSet,
-    userQuestionAnswer
+    userQuestionAnswer,
+    saw
   },
   plugins: [
     createPersistedState({
