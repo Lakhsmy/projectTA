@@ -101,11 +101,19 @@ const routes = [
       )
   },
   {
-    path: "/pengumuman",
+    path: "/pengumuman-psikotest",
     name: "Pengumuman",
     component: () =>
       import(
-        /* webpackChunkName: "JobVacancies" */ "../views/hdc/pengumuman.vue"
+        /* webpackChunkName: "JobVacancies" */ "../views/hdc/PengumumanPsikotest.vue"
+      )
+  },
+  {
+    path: "/pengumuman-hasil",
+    name: "Pengumuman",
+    component: () =>
+      import(
+        /* webpackChunkName: "PengumanHasil" */ "../views/PengumumanHasil.vue"
       )
   },
   {

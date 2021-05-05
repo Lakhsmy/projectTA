@@ -137,12 +137,13 @@
               class="flex flex-col justify-start mb-4 px-4 bg-blueGray-50 rounded"
             >
               <label class="text-left">Unggah CV</label>
-              <t-input
+              <input
                 type="file"
                 id="cv"
                 data-test="cv"
+                ref="cv"
+                @change="selectFile"
                 name="my-input"
-                v-model="form.cv"
               />
             </form>
             <button
@@ -160,7 +161,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "Register",
@@ -179,22 +180,38 @@ export default {
         cv: "",
         password: ""
       },
+      selectedFiles: "",
       showPassword: false,
       pendidikanTerakhirList: ["S2", "S3"],
       jurusanList: ["Tata Boga", "Ciputat - Bintaro"]
     };
   },
+  computed: {
+    ...mapState("user", ["cvData"])
+  },
   methods: {
     ...mapActions("auth", ["registerApplicant"]),
+    ...mapActions("user", ["uploadCV"]),
     onShowPassword: function() {},
+    selectFile() {
+      this.selectedFiles = this.$refs.cv.files[0];
+    },
     onRegister: async function() {
       try {
+        const formData = new FormData();
+        formData.append("file", this.selectedFiles);
+        await this.uploadCV({ payload: formData });
+
+        this.form.cv = `${this.cvData.destination}/${this.filename}`;
         await this.registerApplicant({ payload: this.form });
         await this.$router.push("/login");
       } catch {
         alert("Failed");
       }
     }
+    // onUploadCV(){
+
+    // }
   }
 };
 </script>
