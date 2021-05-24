@@ -35,7 +35,13 @@
                   {{ props.row.ipk }}
                 </td>
                 <td :class="props.tdClass">
-                  <a :href="props.row.cv" target="_blank">lihat</a>
+                  <a
+                    :href="props.row.cv_url"
+                    v-if="props.row.cv_url"
+                    target="_blank"
+                    >lihat</a
+                  >
+                  <span>Tidak Ada CV</span>
                 </td>
 
                 <!-- <a href="userList.cv" target="_blank">lihat</a> -->

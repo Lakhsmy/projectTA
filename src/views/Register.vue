@@ -46,6 +46,7 @@
               <label class="text-left">Password</label>
               <div class="flex flex-row">
                 <t-input
+                  type="password"
                   v-model="form.password"
                   data-test="password"
                   name="my-input"
@@ -202,7 +203,7 @@ export default {
         formData.append("file", this.selectedFiles);
         await this.uploadCV({ payload: formData });
 
-        this.form.cv = `${this.cvData.destination}/${this.filename}`;
+        this.form.cv = `${this.cvData.path}`;
         await this.registerApplicant({ payload: this.form });
         await this.$router.push("/login");
       } catch {
